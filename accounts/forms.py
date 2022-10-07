@@ -2,7 +2,7 @@ from django import forms
 from .models import User
 
 
-#daha güvenli django formu oluşturmak için
+#daha güvenli olan django formu oluşturmak için
 class UserForm(forms.ModelForm):
       password=forms.CharField(widget=forms.PasswordInput)
       confirm_password=forms.CharField(widget=forms.PasswordInput)
