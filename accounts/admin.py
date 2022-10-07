@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User,UserProfile
 class AccountAdmin(UserAdmin):
     list_display=('first_name','last_name',"email","username",'date_joined','last_login','role','is_admin','is_staff','is_active',)
+    ordering = ('-date_joined',)
     list_display_links=("first_name","last_name","email")
     readonly_fiels=('date_joined','last_login')
     
@@ -18,6 +19,9 @@ class UserProfilesAdmin(admin.ModelAdmin):
     search_fields=('user','city','state','country')
     list_per_page=25
     
+
+
+
 
 
         

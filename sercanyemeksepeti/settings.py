@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'vendor'
+    'vendor',
+    # 'menu',
+    # 'marketplace',
+    # 'django.contrib.gis',
+    # 'customers',
+    # 'orders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'orders.request_object.RequestObjectMiddleware', # custom middleware created to access the request object in models.py
 ]
 
 ROOT_URLCONF = 'sercanyemeksepeti.urls'
@@ -66,6 +72,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'accounts.context_processors.get_vendor',
+                # 'accounts.context_processors.get_google_api',
+                # 'marketplace.context_processors.get_cart_counter',
+                # 'marketplace.context_processors.get_cart_amounts',
+                # 'accounts.context_processors.get_user_profile',
+                # 'accounts.context_processors.get_paypal_client_id',
             ],
         },
     },
@@ -85,7 +97,19 @@ DATABASES = {
     }
 }
 
-# DATABASES  ={}  
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.postgresql',
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#     }
+# }
+
+#AUTH_USER_MODEL = 'accounts.User'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -139,10 +163,31 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Kayıt Uyarısı için djangoya özel mesaj ayarları     
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
-    messages.INFO: '',
-    50: 'critical',
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
     messages.WARNING: 'warning',
-    messages.DEBUG: 'info',
+
 }
+
+
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <django.foodonline@gmail.com>'
+
+# GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+# if DEBUG == True:
+#     os.environ['PATH'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+#     os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
+#     GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\gdal304.dll')
+
+# PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
+
+# SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+# RZP_KEY_ID = config('RZP_KEY_ID')
+# RZP_KEY_SECRET = config('RZP_KEY_SECRET')
